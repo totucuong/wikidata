@@ -6,20 +6,20 @@ import java.net.URL;
  * Created by totucuong on 8/2/16.
  */
 public class User {
-    private int id;
+    private String user_id;
     private String user_name;
     private URL talk_page;
     private int edit_count;
 
     public User() {
-        id = -1;
+        user_id = "";
         user_name = "";
         talk_page = null;
         edit_count = -1;
     }
 
-    public int getId() {
-        return id;
+    public String getUser_id() {
+        return user_id;
     }
 
     public String getUser_name() {
@@ -34,8 +34,8 @@ public class User {
         return edit_count;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser_id(String id) {
+        this.user_id = id;
     }
 
     public void setUser_name(String user_name) {
