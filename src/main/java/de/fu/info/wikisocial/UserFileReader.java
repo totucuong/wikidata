@@ -32,12 +32,21 @@ public class UserFileReader {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader("user_id","user_name","user_real_name",
                     "user_password","user_newpassword","user_email","user_options","user_touched","user_token",
                     "user_email_authenticated","user_email_token","user_email_token_expires","user_registration",
-                    "user_newpass_time","user_editcount","user_password_expires").parse(in);
+                    "user_newpass_time","user_editcount","user_password_expires")
+                    .withSkipHeaderRecord(true)
+                    .withQuote('"')
+                    .withEscape('\\')
+                    .parse(in);
 
             for (CSVRecord r : records) {
                 User user = new User();
                 user.setUser_id(r.get("user_id"));
+//                System.out.println(r.get("user_id"));
+
                 user.setUser_name(r.get("user_name"));
+//                System.out.println(r.get("user_name"));
+
+//                System.out.println(r.get("user_editcount"));
                 user.setEdit_count(Integer.parseInt(r.get("user_editcount")));
                 users.add(user);
             }
