@@ -14,6 +14,9 @@ In other words, are there any correlation between coordination and the completen
 
 - Construct a list of current users
 - Crawl on their user talk pages
+- For each talk page:
+    * Get each thread of discussion
+    * build a tree model of thread
 - Extract mentions of items/properties from their talk pages
 - Construct the Wikidata social graph
 
