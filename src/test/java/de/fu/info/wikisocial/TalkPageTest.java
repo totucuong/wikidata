@@ -18,7 +18,7 @@ public class TalkPageTest {
 
     @Before
     public  void setUp() throws  Exception {
-        talk_page = new TalkPage(new URL("https://www.wikidata.org/wiki/User_talk:Taketa"));
+        talk_page = new TalkPage(new URL("https://www.wikidata.org/wiki/User_talk:Taketa"), "Taketa");
     }
 
     @Test

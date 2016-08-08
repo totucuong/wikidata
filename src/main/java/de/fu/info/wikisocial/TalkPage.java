@@ -12,18 +12,25 @@ import java.util.ArrayList;
 
 /**
  * Created by totucuong on 8/2/16.
+ * This class model a single web page that has a table content. Each Wikidata user has a user talk page which have a
+ * table of content and it may also have an archive navigation bar which poits to archived talk pages. Each of archive
+ * talk page also has a table of contents.
  */
 public class TalkPage {
     // main talk page
     private Document doc;
+
+    // owner of current talk page
+    private String owner;
 
     private ArrayList<String> threads;
 
     // table of content
     private Element toc;
 
-    public TalkPage(URL talk_page) {
+    public TalkPage(URL talk_page, String owner) {
         try {
+            this.owner = owner;
             doc = Jsoup.parse(talk_page, 1000);
             threads = null;
         } catch (IOException ex) {
@@ -33,6 +40,10 @@ public class TalkPage {
 
     public Document get_content() {
         return doc;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 
     public ArrayList<String> get_threads() {
