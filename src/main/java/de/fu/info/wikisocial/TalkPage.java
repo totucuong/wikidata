@@ -42,7 +42,7 @@ public class TalkPage {
         return doc;
     }
 
-    public String getOwner() {
+    public String get_owner() {
         return owner;
     }
 

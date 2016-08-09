@@ -20,7 +20,7 @@ public class DiscussionThread {
 
     // regular expression for users, e.g., "Taketa (talk) 10:09, 19 January 2015 (UTC)"
     // @TODO continue here
-    private static final Pattern u_reg = Pattern.compile("(\\w+)\\s+\\(talk\\)\\s(\\d{2}:\\d{2}),\\s(\\d{2})\\s(\\w+)\\s\\d{4}");
+    private static final Pattern u_reg = Pattern.compile("(\\w+)\\s+\\(?talk\\)?\\s(\\d+:\\d+),\\s(\\d+)\\s(\\w+)\\s\\d{4}");
 
     public DiscussionThread(String content) {
         this.content = content;
