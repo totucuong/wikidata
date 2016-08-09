@@ -14,11 +14,13 @@ import static org.junit.Assert.assertEquals;
  * Created by totucuong on 8/3/16.
  */
 public class TalkPageTest {
-    private TalkPage talk_page;
+    private TalkPage talk_page, talk_page_with_archive;
+
 
     @Before
     public  void setUp() throws  Exception {
         talk_page = new TalkPage(new URL("https://www.wikidata.org/wiki/User_talk:Taketa"), "Taketa");
+        talk_page_with_archive = new TalkPage(new URL("https://www.wikidata.org/wiki/User_talk:Multichill"), "Multichill");
     }
 
     @Test
@@ -50,5 +52,11 @@ public class TalkPageTest {
 //            System.out.println(t);
 //            System.out.println("======================================================================================");
 //        }
+    }
+
+    @Test
+    public void testGet_archive_links() throws Exception {
+        ArrayList<URL> links = talk_page_with_archive.get_archive_links();
+        assertEquals(45, links.size());
     }
 }

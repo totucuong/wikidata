@@ -6,7 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -24,9 +24,6 @@ public class TalkPage {
     private String owner;
 
     private ArrayList<String> threads;
-
-    // table of content
-    private Element toc;
 
     public TalkPage(URL talk_page, String owner) {
         try {
@@ -73,6 +70,10 @@ public class TalkPage {
         return threads;
     }
 
+    /**
+     *
+     * @return a list of anchors of threads
+     */
     public ArrayList<String> find_anchors() {
         ArrayList<String> anchors = new ArrayList<String>();
 
@@ -87,6 +88,11 @@ public class TalkPage {
         return anchors;
     }
 
+    /**
+     *
+     * @param anchor of a thread
+     * @return a String representation of a thread
+     */
     private String get_discussion(String anchor) {
         StringBuilder discussion_builder = new StringBuilder();
         Element thread_header = doc.getElementById(anchor.substring(1)).parent();
@@ -99,4 +105,28 @@ public class TalkPage {
         return discussion_builder.toString().trim();
     }
 
+    /**
+     *
+     * @return the archive table of talk pages for the current user
+     */
+    private Element get_archive_table() {
+        return doc.select("table.infobox.plainlinks.wikitable").get(0);
+    }
+
+    /**
+     *
+     * @return a list of links of archived talks
+     */
+    public ArrayList<URL> get_archive_links() {
+        ArrayList<URL> links = new ArrayList<>();
+        Elements e_links = get_archive_table().select("a");
+        for (int i = 1; i < e_links.size(); i++) {
+            try {
+                links.add(new URL(e_links.get(i).attr("abs:href")));
+            } catch (MalformedURLException ex) {
+                // do nothing
+            }
+        }
+        return links;
+    }
 }
