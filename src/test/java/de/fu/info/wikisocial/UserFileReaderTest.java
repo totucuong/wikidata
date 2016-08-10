@@ -1,5 +1,8 @@
 package de.fu.info.wikisocial;
 
+import de.fu.info.wikisocial.wikidata.User;
+import de.fu.info.wikisocial.wikidata.UserFileReader;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;

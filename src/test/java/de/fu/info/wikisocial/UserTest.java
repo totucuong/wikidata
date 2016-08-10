@@ -1,5 +1,6 @@
 package de.fu.info.wikisocial;
 
+import de.fu.info.wikisocial.wikidata.User;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

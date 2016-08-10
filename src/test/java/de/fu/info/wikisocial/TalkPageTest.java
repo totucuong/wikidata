@@ -1,8 +1,8 @@
 package de.fu.info.wikisocial;
 
+import de.fu.info.wikisocial.wikidata.TalkPage;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.net.URL;

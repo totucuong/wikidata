@@ -1,4 +1,4 @@
-package de.fu.info.wikisocial;
+package de.fu.info.wikisocial.wikidata;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

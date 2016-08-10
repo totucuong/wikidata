@@ -1,6 +1,5 @@
-package de.fu.info.wikisocial;
+package de.fu.info.wikisocial.wikidata;
 
-import jdk.internal.dynalink.support.Lookup;
 import org.gephi.graph.api.*;
 import org.gephi.project.api.ProjectController;
 

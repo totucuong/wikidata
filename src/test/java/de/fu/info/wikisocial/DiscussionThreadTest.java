@@ -1,10 +1,9 @@
 package de.fu.info.wikisocial;
 
+import de.fu.info.wikisocial.wikidata.DiscussionThread;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
