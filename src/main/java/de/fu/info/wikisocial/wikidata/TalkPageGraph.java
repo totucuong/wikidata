@@ -37,7 +37,7 @@ public class TalkPageGraph {
     private void build_graph() {
         ArrayList<String> threads = page.get_threads();
         for (String t : threads) {
-            DiscussionThread thread = new DiscussionThread(t);
+            DiscussionThread thread = new DiscussionThread(t, page.get_owner());
 
             // create nodes
             ArrayList<Node> nodes = new ArrayList<>();

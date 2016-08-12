@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 /**
  * Created by totucuong on 3/16/16.
- * The following source code was adapted using code from PS-KB: de.fu.agdb.crawler2
  */
 public class LinkCollectionTask extends RecursiveTask<ArrayList<URL>> {
     private final static int timeOut = 4000;

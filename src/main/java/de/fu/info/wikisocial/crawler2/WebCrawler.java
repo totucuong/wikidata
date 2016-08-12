@@ -4,7 +4,6 @@ import java.io.IOException;
 
 /**
  * Created by totucuong on 3/15/16.
- * Copied from PS-KB: de.fu.agdb.crawler2
  */
 public interface WebCrawler {
     /**

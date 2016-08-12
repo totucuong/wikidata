@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 public class DiscussionThread {
     private String content;
 
+    private String owner;
+
     // regular expression for items, e.g., "Q3190566"
     private static final Pattern i_p = Pattern.compile("Q\\d+");
 
@@ -22,8 +24,9 @@ public class DiscussionThread {
     // @TODO continue here
     private static final Pattern u_reg = Pattern.compile("(\\w+)\\s+\\(?talk\\)?\\s(\\d+:\\d+),\\s(\\d+)\\s(\\w+)\\s\\d{4}");
 
-    public DiscussionThread(String content) {
+    public DiscussionThread(String content, String owner) {
         this.content = content;
+        this.owner = owner;
     }
 
     /**
@@ -63,5 +66,13 @@ public class DiscussionThread {
             users.add(m.group(1));
         }
         return users;
+    }
+
+    public String get_content() {
+        return content;
+    }
+
+    public String get_owner() {
+        return owner;
     }
 }

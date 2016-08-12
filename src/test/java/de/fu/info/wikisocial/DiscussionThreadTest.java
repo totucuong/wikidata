@@ -27,7 +27,7 @@ public class DiscussionThreadTest {
                 "We krijgen een mooi overzicht van constraint violations die mensen langzaam kunnen oplosen\n" +
                 "Wat denk je ervan? Multichill (talk) 12:11, 17 January 2015 (UTC)\n" +
                 "Oh leuk, het voorbeeld is meteen lastig. Multichill (talk) 12:14, 17 January 2015 (UTC)";
-        discussion_thread = new DiscussionThread(content);
+        discussion_thread = new DiscussionThread(content, "Multichill");
 
     }
 
