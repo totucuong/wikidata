@@ -11,7 +11,6 @@ import java.util.ArrayList;
 /**
  * Created by totucuong on 8/12/16.
  * A program to collect discuss threads from Wikidata's user talk pages
- * @TODO: handle some exception: user name has space, etc.===> cannot find user talk page, also no toc,
  */
 public class ThreadCollector {
     public static void main(String[] args) throws IOException {
@@ -22,7 +21,8 @@ public class ThreadCollector {
             ArrayList<User> users = userFileReader.getUsers();
             TalkPageCrawler crawler = new TalkPageCrawler(users);
             crawler.start();
-            crawler.print();
+            crawler.saveToFile(args[1]);
+//            crawler.print();
 //            crawler.saveToFile(args[1]);
         }
     }

@@ -34,7 +34,7 @@ public class User {
 
     private void construct_talk_page_url() {
         try {
-            talk_page = new URL(talk_page_prefix + user_name);
+            talk_page = new URL(talk_page_prefix + user_name.replace(' ', '_'));
         } catch (MalformedURLException ex) {
             ex.printStackTrace();
         }
