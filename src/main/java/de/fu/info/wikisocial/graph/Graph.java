@@ -12,20 +12,20 @@ import java.util.ArrayList;
 public class Graph {
 
     // number of vertices
-    private final int V;
+    protected final int V;
 
     // number of edges
-    private int E;
+    protected int E;
 
     // adjacency list data structure
-    private ArrayList<ArrayList<Integer>> adj;
+    protected ArrayList<ArrayList<Integer>> adj;
 
     /**
      *
-     * @param v number of vertices.
+     * @param V number of vertices.
      */
-    public Graph(int v) {
-        this.V = v;
+    public Graph(int V) {
+        this.V = V;
         this.E = 0;
         initAdj();
     }
