@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by totucuong on 8/12/16.
  * A program to collect discuss threads from Wikidata's user talk pages
  */
-public class ThreadCollector {
+public class  ThreadCollector {
     public static void main(String[] args) throws IOException {
         if (args.length < 2) {
             System.out.println("Usage: java de.fu.info.wikisocial.executables.ThreadCollector <path-to-user-file> <output-path>");
