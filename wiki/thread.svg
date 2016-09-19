@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="thread.svg">
+   sodipodi:docname="thread.svg"
+   inkscape:export-filename="/Users/totucuong-standard/Desktop/thread_graph.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <marker
@@ -83,7 +86,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="109.28571"
+     inkscape:cx="96.071428"
      inkscape:cy="777.14286"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -93,9 +96,9 @@
      inkscape:snap-bbox="true"
      inkscape:window-width="1920"
      inkscape:window-height="959"
-     inkscape:window-x="1280"
-     inkscape:window-y="1"
-     inkscape:window-maximized="1">
+     inkscape:window-x="1277"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
        id="grid3336" />
@@ -186,7 +189,7 @@
          id="tspan4901"
          x="240"
          y="232.3622"
-         style="font-size:17.5px">2</tspan></text>
+         style="font-size:17.5px">1</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text4903"
