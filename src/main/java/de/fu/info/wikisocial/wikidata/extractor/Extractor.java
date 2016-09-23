@@ -1,12 +1,8 @@
 package de.fu.info.wikisocial.wikidata.extractor;
 
-import de.fu.info.wikisocial.wikidata.model.Reply;
-import de.fu.info.wikisocial.wikidata.model.Thread;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,24 +29,23 @@ public class Extractor {
         return null;
     }
 
-    /**
-     *
-     * @param elements contains 3 elements: <h2></h2> for the thread's title, <p></p> for the first msg, and, <dl></dl>
-     *                 for a list of replies
-     * @return a Thread object
-     */
-    public static Thread extract_thread(List<Element> elements) {
-        String poster = Extractor.extract_user(elements.get(1).toString());
-        List<Element> dd = new ArrayList<>();
-        for (Element e : elements.get(2).children()) {
-            if (e.tagName() == "dd")
-                dd.add(e);
-        }
-        List<Reply> replies = new ArrayList<>();
-        dd.forEach(r -> replies.add(new Reply(r, poster)));
-        return new Thread(elements.get(0).toString(), elements.get(1).toString(), replies);
-    }
-
+//    /**
+//     *
+//     * @param elements contains 3 elements: <h2></h2> for the thread's title, <p></p> for the first msg, and, <dl></dl>
+//     *                 for a list of replies
+//     * @return a Thread object
+//     */
+//    public static Thread extract_thread(List<Element> elements) {
+//        String poster = Extractor.extract_user(elements.get(1).toString());
+//        List<Element> dd = new ArrayList<>();
+//        for (Element e : elements.get(2).children()) {
+//            if (e.tagName() == "dd")
+//                dd.add(e);
+//        }
+//        List<Reply> replies = new ArrayList<>();
+//        dd.forEach(r -> replies.add(new Reply(r, poster)));
+//        return new Thread(elements.get(0).toString(), elements.get(1).toString(), replies);
+//    }
 
 
     /**

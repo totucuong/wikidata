@@ -1,6 +1,6 @@
 package de.fu.info.wikisocial.wikidata.networks;
 
-import de.fu.info.wikisocial.wikidata.model.TalkPage;
+import de.fu.info.wikisocial.wikidata.extractor.TalkPageExtractor;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -17,7 +17,7 @@ public class WTPNetworkBuilder {
      * @param filename output file to store within-network-page graph
      * @return a WTPNetwork constructed from pages
      */
-    public static void build(ArrayList<TalkPage> pages, String filename) throws IOException {
+    public static void build(ArrayList<TalkPageExtractor> pages, String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 
 

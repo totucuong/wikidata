@@ -6,22 +6,22 @@ import org.jsoup.nodes.Element;
  * Created by totucuong-standard on 9/22/16.
  */
 public class Reply {
-    // body of reply
-    private Element body;
+    // question that start the reply
+    private String question;
 
-    // original poster of the first message, i.e., the user who starts the discussion
-    private String poster;
+    // the answer to the question (a <dl></dl> group)
+    private Element answer;
 
-    public Reply(Element body, String poster) {
-        this.body = body;
-        this.poster = poster;
+    public Reply(String question, Element answer) {
+        this.question = question;
+        this.answer = answer;
     }
 
-    public Element getBody() {
-        return body;
+    public String getQuestion() {
+        return question;
     }
 
-    public String getPoster() {
-        return poster;
+    public Element getAnswer() {
+        return answer;
     }
 }

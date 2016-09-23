@@ -12,28 +12,19 @@ public class Thread {
     // title of a discussion thread
     private String title;
 
-    // first message
-    private String first_msg;
-
-    // replies messages
-    private List<Reply> replies;
+    private Reply reply;
 
 
-    public Thread(String title, String first_msg, List<Reply> replies) {
+    public Thread(String title, Reply reply) {
         this.title = title;
-        this.first_msg = first_msg;
-        this.replies = replies;
+        this.reply = reply;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getFirst_msg() {
-        return first_msg;
-    }
-
-    public List<Reply> getReplies() {
-        return replies;
+    public Reply getReply() {
+        return reply;
     }
 }

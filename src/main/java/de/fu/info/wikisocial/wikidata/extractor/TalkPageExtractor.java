@@ -1,33 +1,31 @@
-package de.fu.info.wikisocial.wikidata.model;
+package de.fu.info.wikisocial.wikidata.extractor;
 
 import de.fu.info.wikisocial.crawler2.NoTocException;
-import org.jsoup.HttpStatusException;
+import de.fu.info.wikisocial.wikidata.model.Reply;
+import de.fu.info.wikisocial.wikidata.model.Thread;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 /**
  * Created by totucuong on 8/2/16.
- * This class model a single web page that has a table content. Each Wikidata user has a user talk page which have a
- * table of content and it may also have an archive navigation bar which poits to archived talk pages. Each of archive
- * talk page also has a table of contents.
  */
-public class TalkPage {
+public class TalkPageExtractor {
     // main talk page
     private Document doc;
 
     // owner of current talk page
     private String owner;
 
-    private ArrayList<String> threads;
+    private ArrayList<Thread> threads;
 
-    public TalkPage(URL talk_page, String owner) {
+    public TalkPageExtractor(URL talk_page, String owner) {
         try {
             this.owner = owner;
             doc = Jsoup.parse(talk_page, 1000);
@@ -46,7 +44,7 @@ public class TalkPage {
         return owner;
     }
 
-    public ArrayList<String> get_threads() {
+    public ArrayList<Thread> get_threads() {
         if (threads == null) {
             try {
                 threads = find_threads();
@@ -57,10 +55,6 @@ public class TalkPage {
         return threads;
     }
 
-    public ArrayList<Thread> get_threads2() {
-        //@TODO Implement
-        return null;
-    }
 
     private Element find_toc() {
         if (doc != null)
@@ -72,15 +66,15 @@ public class TalkPage {
      *
      * @return a list of threads. Each thread is represented as a String.
      */
-    private ArrayList<String> find_threads() throws NoTocException {
-        ArrayList<String> threads = new ArrayList<String>();
+    private ArrayList<Thread> find_threads() throws NoTocException {
+        ArrayList<Thread> threads = new ArrayList<>();
 
         // get anchors
         try {
             ArrayList<String> anchors = find_anchors();
             // get content of each threads
             for (String anchor : anchors) {
-                threads.add(get_discussion(anchor));
+                threads.add(extract_thread(anchor));
             }
         } catch (NoTocException nex) {
             throw nex;
@@ -109,22 +103,44 @@ public class TalkPage {
     }
 
     /**
-     *
+     * Extract a Thread at postion provided by anchor
      * @param anchor of a thread
-     * @return a String representation of a thread
+     * @return a Thread
+     *
+     * A thread in a Wikidata includes three parts:
+     * 1. title (thread header)
+     * 2. first message ( first <p></p>)
+     * 3. thread's body ( first <dl></dl>)
      */
-    private String get_discussion(String anchor) {
-        StringBuilder discussion_builder = new StringBuilder();
+    private Thread extract_thread(String anchor) {
         if (doc.getElementById(anchor.substring(1)) != null) {
+            // title
             Element thread_header = doc.getElementById(anchor.substring(1)).parent();
-            Element next_sibling = thread_header.nextElementSibling();
-            while (next_sibling != null && next_sibling.tagName() != "h2") {
-                discussion_builder.append(next_sibling.text());
-                discussion_builder.append(" ");
-                next_sibling = next_sibling.nextElementSibling();
-            }
+            String title = thread_header.text();
+
+            // title and body
+            String question = null;
+            Element answer = null;
+            boolean got_answer = false;
+            boolean got_question = false;
+            Element next = thread_header.nextElementSibling();
+            do {
+                if (next.tagName() == "p") {
+                    question = next.text();
+                    got_question = true;
+                }
+                if (next.tagName() == "dl") {
+                    answer = next;
+                    got_answer = true;
+                }
+                next = next.nextElementSibling();
+
+                if (next.tagName() == "h2")
+                    break;
+            } while (!(got_answer && got_question));
+            return new Thread(title, new Reply(question, answer));
         }
-        return discussion_builder.toString().trim();
+        return null;
     }
 
     /**
@@ -150,5 +166,22 @@ public class TalkPage {
             }
         }
         return links;
+    }
+
+    public static void main(String[] args) {
+        try {
+            TalkPageExtractor pageExtractor = new TalkPageExtractor(new URL("https://www.wikidata.org/wiki/User_talk:Taketa"), "Taketa");
+            ArrayList<Thread> threads = pageExtractor.get_threads();
+            for (Thread t: threads) {
+                System.out.println(t.getTitle());
+                System.out.println(t.getReply().getQuestion());
+                System.out.println("========================");
+            }
+            if (threads.get(1).getReply().getAnswer() == null)
+                System.out.println("null answer from " + threads.get(1).getTitle());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 }
