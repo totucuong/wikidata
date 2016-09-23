@@ -1,7 +1,5 @@
 package de.fu.info.wikisocial.wikidata;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

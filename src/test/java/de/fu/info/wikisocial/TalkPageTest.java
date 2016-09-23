@@ -1,6 +1,6 @@
 package de.fu.info.wikisocial;
 
-import de.fu.info.wikisocial.wikidata.TalkPage;
+import de.fu.info.wikisocial.wikidata.model.TalkPage;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;

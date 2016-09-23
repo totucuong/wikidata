@@ -1,5 +1,6 @@
 package de.fu.info.wikisocial.wikidata;
 
+import de.fu.info.wikisocial.wikidata.model.TalkPage;
 import org.gephi.graph.api.*;
 import org.gephi.project.api.ProjectController;
 

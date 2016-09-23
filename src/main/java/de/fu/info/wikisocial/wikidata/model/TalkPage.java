@@ -1,4 +1,4 @@
-package de.fu.info.wikisocial.wikidata;
+package de.fu.info.wikisocial.wikidata.model;
 
 import de.fu.info.wikisocial.crawler2.NoTocException;
 import org.jsoup.HttpStatusException;
@@ -55,6 +55,11 @@ public class TalkPage {
             }
         }
         return threads;
+    }
+
+    public ArrayList<Thread> get_threads2() {
+        //@TODO Implement
+        return null;
     }
 
     private Element find_toc() {

@@ -3,7 +3,7 @@ package de.fu.info.wikisocial.crawler2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.fu.info.wikisocial.wikidata.DiscussionThread;
-import de.fu.info.wikisocial.wikidata.TalkPage;
+import de.fu.info.wikisocial.wikidata.model.TalkPage;
 import de.fu.info.wikisocial.wikidata.User;
 
 import java.io.IOException;

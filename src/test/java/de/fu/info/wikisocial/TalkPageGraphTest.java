@@ -1,6 +1,6 @@
 package de.fu.info.wikisocial;
 
-import de.fu.info.wikisocial.wikidata.TalkPage;
+import de.fu.info.wikisocial.wikidata.model.TalkPage;
 import de.fu.info.wikisocial.wikidata.TalkPageGraph;
 import org.junit.Before;
 import org.junit.Test;
