@@ -1,9 +1,10 @@
-package de.fu.info.wikisocial.wikidata;
+package de.fu.info.wikisocial.wikidata.extractor;
 
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
 
+import de.fu.info.wikisocial.wikidata.model.User;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 

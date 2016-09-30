@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.fu.info.wikisocial.wikidata.DiscussionThread;
 import de.fu.info.wikisocial.wikidata.extractor.TalkPageExtractor;
-import de.fu.info.wikisocial.wikidata.User;
+import de.fu.info.wikisocial.wikidata.model.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,7 +1,7 @@
 package de.fu.info.wikisocial.executables;
 
-import de.fu.info.wikisocial.wikidata.User;
-import de.fu.info.wikisocial.wikidata.UserFileReader;
+import de.fu.info.wikisocial.wikidata.model.User;
+import de.fu.info.wikisocial.wikidata.extractor.UserFileReader;
 import de.fu.info.wikisocial.crawler2.TalkPageCrawler;
 
 

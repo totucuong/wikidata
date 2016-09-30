@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 /**
  * Created by totucuong on 8/2/16.
+ * This class implement the TalkPageExtractor API. This API allows you to extract discuss threads - get_threads() - from
+ * a wiki pages.
  */
 public class TalkPageExtractor {
     // main talk page
@@ -44,6 +46,10 @@ public class TalkPageExtractor {
         return owner;
     }
 
+    /**
+     *
+     * @return list of dicussion threads, otherwise null object.
+     */
     public ArrayList<Thread> get_threads() {
         if (threads == null) {
             try {
@@ -125,18 +131,20 @@ public class TalkPageExtractor {
             boolean got_question = false;
             Element next = thread_header.nextElementSibling();
             do {
-                if (next.tagName() == "p") {
-                    question = next.text();
-                    got_question = true;
-                }
-                if (next.tagName() == "dl") {
-                    answer = next;
-                    got_answer = true;
-                }
-                next = next.nextElementSibling();
+                if (next != null) {
+                    if (next.tagName() == "p") {
+                        question = next.text();
+                        got_question = true;
+                    }
+                    if (next.tagName() == "dl") {
+                        answer = next;
+                        got_answer = true;
+                    }
+                    next = next.nextElementSibling();
 
-                if (next.tagName() == "h2")
-                    break;
+                    if (next == null || next.tagName() == "h2")
+                        break;
+                }
             } while (!(got_answer && got_question));
             return new Thread(title, new Reply(question, answer));
         }
@@ -174,11 +182,8 @@ public class TalkPageExtractor {
             ArrayList<Thread> threads = pageExtractor.get_threads();
             for (Thread t: threads) {
                 System.out.println(t.getTitle());
-                System.out.println(t.getReply().getQuestion());
                 System.out.println("========================");
             }
-            if (threads.get(1).getReply().getAnswer() == null)
-                System.out.println("null answer from " + threads.get(1).getTitle());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

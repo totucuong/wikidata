@@ -1,4 +1,4 @@
-package de.fu.info.wikisocial.wikidata;
+package de.fu.info.wikisocial.wikidata.model;
 
 import java.net.MalformedURLException;
 import java.net.URL;
