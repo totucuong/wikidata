@@ -80,7 +80,10 @@ public class TalkPageExtractor {
             ArrayList<String> anchors = find_anchors();
             // get content of each threads
             for (String anchor : anchors) {
-                threads.add(extract_thread(anchor));
+                System.out.println("DEBUG - process anchor " + anchor);
+                Thread t = extract_thread(anchor);
+                if (t != null)
+                    threads.add(t);
             }
         } catch (NoTocException nex) {
             throw nex;
@@ -111,7 +114,7 @@ public class TalkPageExtractor {
     /**
      * Extract a Thread at postion provided by anchor
      * @param anchor of a thread
-     * @return a Thread
+     * @return a Thread if there is a discussion, otherwise null
      *
      * A thread in a Wikidata includes three parts:
      * 1. title (thread header)
@@ -146,7 +149,9 @@ public class TalkPageExtractor {
                         break;
                 }
             } while (!(got_answer && got_question));
-            return new Thread(title, new Reply(question, answer));
+
+            if (got_answer && got_question)
+                return new Thread(title, new Reply(question, answer));
         }
         return null;
     }

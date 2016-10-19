@@ -43,6 +43,7 @@ public class WTPNetworkExtractor {
     public void extract(List<User> users) throws IOException{
         // get discussion threads
         for (User u : users) {
+            System.out.println("DEBUG - Process talk page of user " + u.getUser_name());
             ArrayList<Thread> tmp = (new TalkPageExtractor(u.getTalk_page(), u.getUser_name())).get_threads();
             if (tmp != null)
                 threads.addAll(tmp);

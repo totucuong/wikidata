@@ -2,6 +2,7 @@ package de.fu.info.wikisocial.wikidata.extractor;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,23 @@ public class Extractor {
             return (m.group(1));
         }
         return null;
+    }
+
+    public static String extract_user(Element msg) {
+        // first look for link to user page
+        Elements user_page_link = msg.select("[href*=/wiki/User:]");
+        for (Element e : user_page_link) {
+            return e.text();
+        }
+
+        // if no user page look for talk page
+        Elements user_talk_page_link = msg.select("[href*=/wiki/User_talk]");
+        for (Element e : user_talk_page_link) {
+            return e.attr("href").substring(16);
+        }
+
+        // if no user page no talk page use regex pattern
+        return Extractor.extract_user(msg.text());
     }
 
 //    /**
