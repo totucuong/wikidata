@@ -3,8 +3,10 @@ package de.fu.info.wikisocial.graph;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by totucuong-standard on 9/16/16.
@@ -16,7 +18,7 @@ public class SymbolGraph {
     private HashMap<String, Integer> st;
 
     // index to name
-    private ArrayList<String> keys;
+    private String[] keys;
 
     // underlying graph
     private Graph G;
@@ -28,7 +30,7 @@ public class SymbolGraph {
      * @param directed true if the graph is directed, false otherwise
      */
     public SymbolGraph(String filename, String delim, boolean directed) throws IOException {
-
+        System.out.println("filename");
         // building symbol table
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             st = new HashMap<>();
@@ -42,8 +44,11 @@ public class SymbolGraph {
         }
 
         // building inverted index
-        keys = new ArrayList<>(st.size());
-        st.forEach((k,v) -> keys.add(v,k));
+        keys = new String[st.size()];
+//        for (String k : st.keySet()) {
+//            keys.add(st.get(k), k);
+//        }
+        st.forEach((k,v) -> keys[v] = k);
 
         // builds the graph
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -54,6 +59,7 @@ public class SymbolGraph {
             String l;
             while ((l = reader.readLine()) != null) {
                 String[] vertices =l.split(delim);
+                //@TODO fix this
                 G.addEdge(Integer.parseInt(vertices[0]), Integer.parseInt(vertices[1]));
             }
         }
@@ -83,7 +89,7 @@ public class SymbolGraph {
      * @return the vertex's key (name)
      */
     String name(int v) {
-        return keys.get(v);
+        return keys[v];
     }
 
     /**
@@ -92,5 +98,23 @@ public class SymbolGraph {
      */
     Graph G() {
         return G;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String filename = args[0];
+        String delim = args[1];
+            SymbolGraph sg = new SymbolGraph(filename, delim, true);
+            Graph g = sg.G();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        while (true) {
+            String source = reader.readLine();
+            if (source == "q")
+                return;
+
+            for (int w : g.adj(sg.index(source))) {
+                System.out.println("    " + sg.name(w));
+            }
+        }
     }
 }

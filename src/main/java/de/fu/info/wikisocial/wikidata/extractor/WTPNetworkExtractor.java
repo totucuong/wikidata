@@ -51,15 +51,29 @@ public class WTPNetworkExtractor {
 
         // extract WTPNetwork's edges
         for (Thread t : threads) {
-            System.out.println(t.getTitle());
+//            System.out.println(t.getTitle());
             extract_edges(t);
         }
     }
 
     public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+//            writer.write("Source,Target\n");
             for (Pair p : edges) {
-                writer.write(p.getLeft() + " " + p.getRight());
+                String left;
+                if (p.getLeft() != null)
+                    left = ((String) p.getLeft()).replace(" ", "_").trim();
+                else
+                    continue;
+//                    left = "null";
+
+                String right;
+                if (p.getRight() != null)
+                    right = ((String) p.getRight()).replace(" ", "_").trim();
+                else
+                    continue;
+//                    right = "null";
+                writer.write(left + "," + right);
                 writer.write("\n");
             }
         } catch (IOException iex) {

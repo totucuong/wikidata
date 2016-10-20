@@ -28,6 +28,7 @@ public class JSoupExperiment {
                 "</dd>\n" +
                 "</dl>","");
         System.out.println(document.toString());
-
+        System.out.println("========================================================================================");
+        System.out.println(document.text());
     }
 }

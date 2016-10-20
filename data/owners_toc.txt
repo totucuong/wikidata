@@ -374,7 +374,6 @@ Forstbirdo
 Zywang114072
 Tzafrir
 BAICAN XXX
-Kondicherry
 Pallerti
 Greenknight dv
 Shonagon
@@ -582,7 +581,6 @@ Remux
 Mrjohncummings
 Fomafix
 23artashes
-MediaWiki message delivery
 Reedy
 Cosal
 Sk!dbot

@@ -136,7 +136,7 @@ public class TalkPageExtractor {
             do {
                 if (next != null) {
                     if (next.tagName() == "p") {
-                        question = next.text();
+                        question = next.html();
                         got_question = true;
                     }
                     if (next.tagName() == "dl") {
