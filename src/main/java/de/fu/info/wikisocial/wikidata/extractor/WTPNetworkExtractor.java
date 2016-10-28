@@ -3,14 +3,11 @@ package de.fu.info.wikisocial.wikidata.extractor;
 import de.fu.info.wikisocial.wikidata.model.Reply;
 import de.fu.info.wikisocial.wikidata.model.User;
 import de.fu.info.wikisocial.wikidata.model.Thread;
-import org.apache.batik.css.engine.value.css2.SrcManager;
 import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.helpers.FormattingTuple;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 

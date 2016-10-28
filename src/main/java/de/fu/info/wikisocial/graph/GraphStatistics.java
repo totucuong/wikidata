@@ -14,6 +14,7 @@ public class GraphStatistics {
      */
     public static int degree(Graph G, int v) {
         int degree = 0;
+
         for (int w : G.adj(v)) degree++;
         return degree;
     }
@@ -33,7 +34,7 @@ public class GraphStatistics {
     }
 
     /**
-     * Compute average vertex degree in a given graph
+     * Compute average vertex degree in a given graph. Here the graph is always considered undirected
      * @param G a graph
      * @return
      */

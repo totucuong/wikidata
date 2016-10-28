@@ -55,7 +55,7 @@ public class Graph {
      *
      * @return the number of vertices.
      */
-    int V() {
+    public int V() {
         return V;
     }
 
@@ -63,7 +63,7 @@ public class Graph {
      *
      * @return the number of edges
      */
-    int E() {
+    public int E() {
         return E;
     }
 
@@ -72,7 +72,7 @@ public class Graph {
      * @param v the index of a vertex
      * @return return v's list of adjancent vertices
      */
-    Iterable<Integer> adj(int v) {
+    public Iterable<Integer> adj(int v) {
         return adj.get(v);
     }
 

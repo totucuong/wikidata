@@ -30,7 +30,6 @@ public class SymbolGraph {
      * @param directed true if the graph is directed, false otherwise
      */
     public SymbolGraph(String filename, String delim, boolean directed) throws IOException {
-        System.out.println("filename");
         // building symbol table
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             st = new HashMap<>();
@@ -58,9 +57,10 @@ public class SymbolGraph {
                 G = new GraphBuilderImpl().createGraph(st.size());
             String l;
             while ((l = reader.readLine()) != null) {
-                String[] vertices =l.split(delim);
-                //@TODO fix this
-                G.addEdge(Integer.parseInt(vertices[0]), Integer.parseInt(vertices[1]));
+                String[] vertices = l.split(delim);         // connecting the
+                int v = st.get(vertices[0]);                // first vertex
+                for (int i = 1; i < vertices.length; i++)   // on each line
+                    G.addEdge(v, st.get(vertices[i]));      // to all others.
             }
         }
     }
@@ -79,7 +79,7 @@ public class SymbolGraph {
      * @param key is the name of a vertex
      * @return the associated index of the vertex in the graph
      */
-    int index(String key) {
+    public final int index(String key) {
         return st.get(key);
     }
 
@@ -88,7 +88,7 @@ public class SymbolGraph {
      * @param v the index of a vertex
      * @return the vertex's key (name)
      */
-    String name(int v) {
+    public final String name(int v) {
         return keys[v];
     }
 
@@ -96,11 +96,12 @@ public class SymbolGraph {
      *
      * @return the underlying graph
      */
-    Graph G() {
+    public final Graph G() {
         return G;
     }
 
     public static void main(String[] args) throws Exception {
+        System.out.println("Construct within page network from " + args[0]);
         String filename = args[0];
         String delim = args[1];
             SymbolGraph sg = new SymbolGraph(filename, delim, true);
@@ -108,6 +109,7 @@ public class SymbolGraph {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
+            System.out.println("Enter a node name:");
             String source = reader.readLine();
             if (source == "q")
                 return;
