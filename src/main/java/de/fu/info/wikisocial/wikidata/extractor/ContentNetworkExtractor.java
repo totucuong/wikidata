@@ -1,20 +1,23 @@
 package de.fu.info.wikisocial.wikidata.extractor;
 
-import de.fu.info.wikisocial.wikidata.model.Reply;
-import de.fu.info.wikisocial.wikidata.model.User;
 import de.fu.info.wikisocial.wikidata.model.Thread;
+import de.fu.info.wikisocial.wikidata.model.User;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Created by totucuong-standard on 9/22/16.
+ * Created by totucuong-standard on 11/23/16.
+ * This is a co-mentioning network. Nodes are Wikidata items/properties. A edge between two Wikidata
+ * artifacts if they are co-mentioned in the same discussion thread from a talk pages
  */
-public class WTPNetworkExtractor {
+public class ContentNetworkExtractor {
 
     private String filename;
 
@@ -22,22 +25,21 @@ public class WTPNetworkExtractor {
 
     private ArrayList<Pair<String, String>> edges;
 
-
     /**
-     * Construct a WTPNetwork extractor with a path to graph file.
+     * Construct a ContentNetworkExtractor  with a path to graph file.
      *  @param filename name of the file that store the WTPNetwork
      */
-    public WTPNetworkExtractor(String filename) {
-        threads = new ArrayList<>();
-        edges = new ArrayList<>();
+    public ContentNetworkExtractor(String filename) {
         this.filename = filename;
+        this.threads = new ArrayList<>();
+        this.edges = new ArrayList<>();
     }
 
     /**
-     * extract the ContentNetwork from talk pages
+     * extract the ContentNetworkExtractor from talk pages
      * @param users list of users
      */
-    public void extract(List<User> users) throws IOException{
+    public void extract(List<User> users) throws IOException {
         // get discussion threads
         for (User u : users) {
             System.out.println("DEBUG - Process talk page of user " + u.getUser_name());
@@ -46,7 +48,7 @@ public class WTPNetworkExtractor {
                 threads.addAll(tmp);
         }
 
-        // extract WTPNetwork's edges
+        // extract ContentNetworkExtractor's edges
         for (Thread t : threads) {
 //            System.out.println(t.getTitle());
             extract_edges(t);
@@ -58,24 +60,18 @@ public class WTPNetworkExtractor {
      * @param t a discussion thread
      */
     private void extract_edges(Thread t) throws IOException {
-        extract_edges(t.getReply());
-    }
+        // extract all artifacts
+        Set<String> artifacts = Extractor.extract_artifacts(t.toString());
 
-    /**
-     * Extract edges from a Reply
-     * @param reply a reply
-     */
-    private void extract_edges(Reply reply) throws IOException {
-        String poster = reply.get_poster();
-
-        ArrayList<Reply> sub_replies = reply.get_replies();
-        if (sub_replies != null) {
-            for (Reply r : sub_replies) {
-                edges.add(Pair.of(r.get_poster(), poster));
-                extract_edges(r);
+        // create edges between every two artifacts
+        ArrayList<String> nodes = new ArrayList<>();
+        nodes.addAll(artifacts);
+        for (int i = 0; i < nodes.size() - 1; i++)
+            for (int j = i+1; j < nodes.size(); j++) {
+                edges.add(Pair.of(nodes.get(i), nodes.get(j)));
             }
-        }
     }
+
 
     public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
@@ -100,12 +96,5 @@ public class WTPNetworkExtractor {
         } catch (IOException iex) {
             iex.printStackTrace();
         }
-    }
-
-
-    public static void main(String[] args) {
-        ArrayList<String> strings = null;
-        for (String str : strings)
-            System.out.println(str);
     }
 }

@@ -5,4 +5,5 @@ package de.fu.info.wikisocial.executables;
  * This program collects page of Wikidata's users' talk pages in raw html
  */
 public class UserTalkPageGenerator {
+
 }

@@ -1,6 +1,6 @@
 package de.fu.info.wikisocial.executables;
 
-import de.fu.info.wikisocial.wikidata.extractor.WTPNetworkExtractor;
+import de.fu.info.wikisocial.wikidata.extractor.ContentNetworkExtractor;
 import de.fu.info.wikisocial.wikidata.model.User;
 
 import java.io.BufferedReader;
@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by totucuong-standard on 10/19/16.
- * This program generate within-talk-page
+ * Created by totucuong-standard on 11/23/16.
  */
-public class WTPNetworkGenerator {
-
+public class ContentNetworkGenerator {
     public static void main(String[] args) {
         // read in users with talk page that has table of content
         List<User> users = new ArrayList<>();
@@ -28,11 +26,11 @@ public class WTPNetworkGenerator {
             ex.printStackTrace();
         }
 
-        // extract wtp network
-        WTPNetworkExtractor wtpNetworkExtractor = new WTPNetworkExtractor("./data/wtpnetwork.csv");
+        // extract content network
+        ContentNetworkExtractor contentNetworkExtractor = new ContentNetworkExtractor("./data/contentnetwork.csv");
         try {
-            wtpNetworkExtractor.extract(users);
-            wtpNetworkExtractor.save();
+            contentNetworkExtractor.extract(users);
+            contentNetworkExtractor.save();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

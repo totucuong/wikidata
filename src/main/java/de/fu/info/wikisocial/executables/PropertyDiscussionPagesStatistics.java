@@ -4,16 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.fu.info.wikisocial.NotYetAnalyzedException;
 import de.fu.info.wikisocial.wikidata.extractor.Extractor;
+import de.fu.info.wikisocial.wikidata.extractor.TalkPageExtractor;
 import de.fu.info.wikisocial.wikidata.model.ItemDiscussionPage;
+import de.fu.info.wikisocial.wikidata.model.Thread;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.jsoup.Jsoup;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by totucuong-standard on 10/28/16.
@@ -32,6 +33,8 @@ public class PropertyDiscussionPagesStatistics {
     DescriptiveStatistics msg_stats;
     private boolean analyzed;
     private String path_to_data_file;
+    private ArrayList<Pair<String, String>> edges;
+
 
     public PropertyDiscussionPagesStatistics(String path_to_data_file) {
 //        this.n_msgs = 0;
@@ -46,6 +49,51 @@ public class PropertyDiscussionPagesStatistics {
         msg_stats = new DescriptiveStatistics();
         this.path_to_data_file = path_to_data_file;
         this.analyzed = false;
+        this.edges = new ArrayList<>();
+    }
+
+
+    public void save(String graphfilename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(graphfilename))) {
+//            writer.write("Source,Target\n");
+            for (Pair p : edges) {
+                String left;
+                if (p.getLeft() != null)
+                    left = ((String) p.getLeft()).replace(" ", "_").trim();
+                else
+                    continue;
+//                    left = "null";
+
+                String right;
+                if (p.getRight() != null)
+                    right = ((String) p.getRight()).replace(" ", "_").trim();
+                else
+                    continue;
+//                    right = "null";
+                writer.write(left + "," + right);
+                writer.write("\n");
+            }
+        } catch (IOException iex) {
+            iex.printStackTrace();
+        }
+    }
+
+    /**
+     * Extract graph edges for the a within page network
+     * @param t a discussion thread
+     */
+    private void extract_edges(Thread t) throws IOException {
+        // extract all artifacts
+        Set<String> artifacts = Extractor.extract_artifacts(t.toString());
+
+        // create edges between every two artifacts
+        ArrayList<String> nodes = new ArrayList<>();
+        nodes.addAll(artifacts);
+        System.out.println("Number of nodes: " + nodes.size());
+        for (int i = 0; i < nodes.size() - 1; i++)
+            for (int j = i+1; j < nodes.size(); j++) {
+                edges.add(Pair.of(nodes.get(i), nodes.get(j)));
+            }
     }
 
     public void analyze() {

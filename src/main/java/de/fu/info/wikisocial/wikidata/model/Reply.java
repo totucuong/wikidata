@@ -5,7 +5,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
-import org.jsoup.nodes.TextNode;
 
 import java.util.ArrayList;
 
@@ -29,6 +28,10 @@ public class Reply {
             throw (new IllegalArgumentException("Question of a Reply cannot be null"));
         this.question = question;
         this.answer = answer;
+    }
+
+    public Reply(String question) {
+        this.question = question;
     }
 
     public String get_poster() {
@@ -63,6 +66,22 @@ public class Reply {
         }
         return replies;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (question != null) {
+            builder.append(question.toString());
+            builder.append(" ");
+        }
+
+        if (answer !=null) {
+            builder.append(answer.toString());
+        }
+
+        return builder.toString();
+    }
+
 
 //    /**
 //     *

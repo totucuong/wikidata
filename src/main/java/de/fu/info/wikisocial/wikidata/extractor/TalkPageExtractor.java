@@ -38,12 +38,18 @@ public class TalkPageExtractor {
         }
     }
 
-    public Document get_content() {
-        return doc;
+    public TalkPageExtractor(String html, String owner) {
+        try {
+            this.owner = owner;
+            doc = Jsoup.parse(html);
+            threads = null;
+        } catch (Exception ex) {
+            // do nothing
+        }
     }
 
-    public String get_owner() {
-        return owner;
+    public Document get_content() {
+        return doc;
     }
 
     /**
@@ -80,10 +86,14 @@ public class TalkPageExtractor {
             ArrayList<String> anchors = find_anchors();
             // get content of each threads
             for (String anchor : anchors) {
-                System.out.println("DEBUG - process anchor " + anchor);
-                Thread t = extract_thread(anchor);
-                if (t != null)
-                    threads.add(t);
+                System.out.println("DEBUG - process anchor " + anchor + "property: " + owner);
+                try {
+                    Thread t = extract_thread(anchor);
+                    if (t != null)
+                        threads.add(t);
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("Something wrong with the thread " + anchor + " from " + owner);
+                }
             }
         } catch (NoTocException nex) {
             throw nex;
@@ -150,8 +160,15 @@ public class TalkPageExtractor {
                 }
             } while (!(got_answer && got_question));
 
-            if (got_answer && got_question)
-                return new Thread(title, new Reply(question, answer));
+            if (got_answer || got_question) {
+                Thread t = null;
+                try {
+                    t = new Thread(title, new Reply(question, answer));
+                    return t;
+                } catch (IllegalArgumentException iax) {
+                    System.out.println("Something wrong with the thread HTML format at talk page of " + owner + " at entry " + title);
+                }
+            }
         }
         return null;
     }

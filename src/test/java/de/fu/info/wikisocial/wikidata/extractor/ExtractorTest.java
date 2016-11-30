@@ -87,6 +87,13 @@ public class ExtractorTest {
     }
 
     @Test
+    public void extract_items() throws Exception {
+        String content = "Ahoj. Jsem rád, že jsem na wikidatech nalezl česky mluvícího správce. Našel jsem dvojici položek, které by měly být sloučeny do jedné. Jedná se o Q9537742 a q985073. Mohl bys to prosím zařídit? Děkuju. --Unpocoloco (talk) 20:08, 6 August 2013 (UTC)\n";
+        assertEquals(2, Extractor.extract_artifacts(content).size());
+
+    }
+
+    @Test
     public void count_number_prop_mentions() throws Exception {
         String content = "By the way, I reverted your edits in Bliss (Q2368) because it should rather be coordinates of the point of view (P1259) than coordinate location (P625) (the difference may seem like hair-splitting in this case, but having two different properties is necesssary for non-numeric photos). --Zolo (talk) 17:17, 11 May 2014 (UTC)";
         assertEquals(2, Extractor.count_num_prop_mentions(content));

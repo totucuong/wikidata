@@ -32,4 +32,9 @@ public class Thread {
     public Reply getReply() {
         return reply;
     }
+
+    @Override
+    public String toString() {
+        return title + " " + reply.toString();
+    }
 }

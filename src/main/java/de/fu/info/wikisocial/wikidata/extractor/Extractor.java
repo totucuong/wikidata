@@ -86,7 +86,7 @@ public class Extractor {
         HashSet<String> props = new HashSet<>();
         Matcher m = p_reg.matcher(content);
         while (m.find()) {
-            props.add(m.group(1));
+            props.add(m.group(0));
         }
         return props;
     }
@@ -104,9 +104,17 @@ public class Extractor {
         HashSet<String> items = new HashSet<>();
         Matcher m = i_reg.matcher(content);
         while (m.find()) {
-            items.add(m.group(1));
+            items.add(m.group(0));
         }
         return items;
+    }
+
+
+    public static Set<String> extract_artifacts(String content) {
+        HashSet<String> artifacts = new HashSet<>();
+        artifacts.addAll(extract_items(content));
+        artifacts.addAll(extract_props(content));
+        return artifacts;
     }
 
     public static int count_num_item_mentions(String content) {
