@@ -14,7 +14,8 @@ import de.fu.info.wikisocial.wikidata.DiscussionThread;
 /**
  * This class collect statistics about user talk pages.
  */
-public class ThreadStatistics {
+public class
+ThreadStatistics {
 
     private HashSet<String> owner;
 
