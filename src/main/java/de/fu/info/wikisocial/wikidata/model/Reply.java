@@ -30,9 +30,6 @@ public class Reply {
         this.answer = answer;
     }
 
-    public Reply(String question) {
-        this.question = question;
-    }
 
     public String get_poster() {
         Document doc = Jsoup.parseBodyFragment(question);
@@ -67,11 +64,19 @@ public class Reply {
         return replies;
     }
 
+    /**
+     *
+     * @return posted date of the reply, or null if date is not available.
+     */
+    public String get_timestamp() {
+       return Extractor.extract_time(question);
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         if (question != null) {
-            builder.append(question.toString());
+            builder.append(question);
             builder.append(" ");
         }
 

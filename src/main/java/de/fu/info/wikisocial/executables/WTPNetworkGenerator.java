@@ -29,7 +29,7 @@ public class WTPNetworkGenerator {
         }
 
         // extract wtp network
-        WTPNetworkExtractor wtpNetworkExtractor = new WTPNetworkExtractor("./data/wtpnetwork.csv");
+        WTPNetworkExtractor wtpNetworkExtractor = new WTPNetworkExtractor("./data/wtpnetwork_timestamp.csv");
         try {
             wtpNetworkExtractor.extract(users);
             wtpNetworkExtractor.save();

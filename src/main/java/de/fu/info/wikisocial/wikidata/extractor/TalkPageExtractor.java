@@ -163,7 +163,7 @@ public class TalkPageExtractor {
             if (got_answer || got_question) {
                 Thread t = null;
                 try {
-                    t = new Thread(title, new Reply(question, answer));
+                    t = new Thread(title, new Reply(question, answer), owner);
                     return t;
                 } catch (IllegalArgumentException iax) {
                     System.out.println("Something wrong with the thread HTML format at talk page of " + owner + " at entry " + title);

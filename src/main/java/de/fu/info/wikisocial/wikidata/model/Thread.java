@@ -17,12 +17,15 @@ public class Thread {
 
     private Reply reply;
 
+    private String owner;
 
-    public Thread(String title, Reply reply) {
+
+    public Thread(String title, Reply reply, String owner) {
         if (title == null || reply == null)
             throw (new IllegalArgumentException("Title and Reply cannot be null"));
         this.title = title;
         this.reply = reply;
+        this.owner = owner;
     }
 
     public String getTitle() {
@@ -32,6 +35,8 @@ public class Thread {
     public Reply getReply() {
         return reply;
     }
+
+    public String getOwner() { return owner; }
 
     @Override
     public String toString() {

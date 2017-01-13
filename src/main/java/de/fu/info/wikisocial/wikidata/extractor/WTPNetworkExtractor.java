@@ -1,6 +1,7 @@
 package de.fu.info.wikisocial.wikidata.extractor;
 
 import de.fu.info.wikisocial.wikidata.model.Reply;
+import de.fu.info.wikisocial.wikidata.model.TemporalEdge;
 import de.fu.info.wikisocial.wikidata.model.User;
 import de.fu.info.wikisocial.wikidata.model.Thread;
 import org.apache.commons.lang3.tuple.Pair;
@@ -9,7 +10,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Date;
 
 /**
  * Created by totucuong-standard on 9/22/16.
@@ -20,10 +23,11 @@ public class WTPNetworkExtractor {
 
     private ArrayList<Thread> threads;
 
-    private ArrayList<Pair<String, String>> edges;
+//    private ArrayList<Pair<String, String>> edges;
     // list of edges with timestamp
 //    private ArrayList<Pair<Pair<String, String>, String>> edges;
 
+    private ArrayList<TemporalEdge> edges;
     /**
      * Construct a WTPNetwork extractor with a path to graph file.
      *  @param filename name of the file that store the WTPNetwork
@@ -59,43 +63,50 @@ public class WTPNetworkExtractor {
      * @param t a discussion thread
      */
     private void extract_edges(Thread t) throws IOException {
-        extract_edges(t.getReply());
+        extract_edges(t.getReply(), t.getOwner());
     }
 
     /**
      * Extract edges from a Reply
      * @param reply a reply
      */
-    private void extract_edges(Reply reply) throws IOException {
+    private void extract_edges(Reply reply, String owner) throws IOException {
         String poster = reply.get_poster();
+        if (reply.get_timestamp() != null)
+            edges.add(new TemporalEdge(poster, owner, new Date(reply.get_timestamp())));
 
         ArrayList<Reply> sub_replies = reply.get_replies();
         if (sub_replies != null) {
             for (Reply r : sub_replies) {
-                edges.add(Pair.of(r.get_poster(), poster));
-                extract_edges(r);
+                if (r.get_timestamp() != null)
+                    edges.add(new TemporalEdge(r.get_poster(), poster, new Date(r.get_timestamp())));
+                extract_edges(r,owner);
             }
         }
     }
 
     public void save() {
+        // sort edges
+        Collections.sort(edges);
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 //            writer.write("Source,Target\n");
-            for (Pair p : edges) {
-                String left;
-                if (p.getLeft() != null)
-                    left = ((String) p.getLeft()).replace(" ", "_").trim();
+            for (TemporalEdge e : edges) {
+                String src;
+                if (e.getSrc() != null)
+                    src = e.getSrc().replace(" ", "_").trim();
                 else
                     continue;
 //                    left = "null";
 
-                String right;
-                if (p.getRight() != null)
-                    right = ((String) p.getRight()).replace(" ", "_").trim();
+                String tgt;
+                if (e.getTgt() != null)
+                    tgt = e.getTgt().replace(" ", "_").trim();
                 else
                     continue;
 //                    right = "null";
-                writer.write(left + "," + right);
+                writer.write(src + "," + tgt);
+                writer.write(","+ e.getTimestamp());
                 writer.write("\n");
             }
         } catch (IOException iex) {
