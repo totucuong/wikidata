@@ -81,34 +81,4 @@ public class Reply {
 
         return builder.toString();
     }
-
-
-//    /**
-//     *
-//     * @return a list of replies, null if there is no replies
-//     */
-//    public ArrayList<Reply> get_replies() {
-//        if (answer == null)
-//            return null;
-//        ArrayList<Reply> replies = new ArrayList<>();
-//        for (Element e : answer.children()) {
-//            if (e.tagName() == "dd") {
-//                // get answer
-//                Element answer = null;
-//                StringBuilder questionBuilder = new StringBuilder();
-//                for (Node n : e.childNodes()) {
-//                    if (n instanceof Element && ((Element) n).tagName() == "dl") {
-//                        answer = (Element) n;
-//                        break;
-//                    } else if (n instanceof TextNode) {
-//                        questionBuilder.append(((TextNode) n).text());
-//                    } else if (n instanceof Element) {
-//                        questionBuilder.append(((Element) n).text());
-//                    }
-//                }
-//                replies.add(new Reply(questionBuilder.toString(), answer));
-//            }
-//        }
-//        return replies;
-//    }
 }

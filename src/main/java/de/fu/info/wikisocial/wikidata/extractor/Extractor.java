@@ -1,5 +1,6 @@
 package de.fu.info.wikisocial.wikidata.extractor;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -22,6 +23,9 @@ public class Extractor {
             "(\\w+)\\s\\d{4}");
     private static final Pattern i_reg = Pattern.compile("[Q,q]\\d+");
     private static final Pattern p_reg = Pattern.compile("[P,p]\\d+");
+
+    // pattern to match message timestamp
+    private static final Pattern t_reg = Pattern.compile("\\d{2}:\\d{2}, (\\d?\\d \\w+ \\d{4})\\s\\(UTC\\)");
 
     /**
      * Extract an user name from a message text
@@ -65,6 +69,20 @@ public class Extractor {
 
         // if no user page no talk page use regex pattern
         return Extractor.extract_user(msg.text());
+    }
+
+    /**
+     *
+     * @param msg the message
+     * @return the timestamp of the message, or null if there is no timestamp.
+     * The function assume there is only one timestamp in the message. Hence it always return the first timestamp it
+     * finds.
+     */
+    public static String extract_time(String msg) {
+        Matcher m = t_reg.matcher(msg);
+        if (m.find())
+            return m.group(1);
+        return null;
     }
 
     /**

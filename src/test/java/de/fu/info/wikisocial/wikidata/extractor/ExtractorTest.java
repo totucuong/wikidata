@@ -110,4 +110,19 @@ public class ExtractorTest {
                 "Wikipedia uses \"dim\" for the dimension in meters (more info). Precision is in degrees. The dim in meters gets converted to degrees (code). Multichill (talk) 18:03, 16 May 2014 (UTC)";
         assertEquals(5, Extractor.count_num_msgs(content));
     }
+
+    @Test
+    public void extract_time_single_date() throws Exception {
+        String msg = "Ok, that's a  Not done. Not implementing that feature. Multichill (talk) 14:25, 29 December 2016 (UTC)\n" +
+                "\n";
+        assertEquals("29 December 2016", Extractor.extract_time(msg));
+    }
+
+    @Test
+    public void extract_time_double_date() throws Exception {
+        String msg = "Chugging along slowly when I need a break from writing :) Missvain (talk) 20:35, 2 January 2017 (UTC)\n" +
+                "\n";
+        assertEquals("2 January 2017", Extractor.extract_time(msg));
+        System.out.println(Extractor.extract_time(msg));
+    }
 }

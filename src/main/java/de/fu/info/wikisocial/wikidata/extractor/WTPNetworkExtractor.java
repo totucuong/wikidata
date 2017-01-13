@@ -21,7 +21,8 @@ public class WTPNetworkExtractor {
     private ArrayList<Thread> threads;
 
     private ArrayList<Pair<String, String>> edges;
-
+    // list of edges with timestamp
+//    private ArrayList<Pair<Pair<String, String>, String>> edges;
 
     /**
      * Construct a WTPNetwork extractor with a path to graph file.
