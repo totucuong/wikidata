@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,13 +74,13 @@ public class WTPNetworkExtractor {
     private void extract_edges(Reply reply, String owner) throws IOException {
         String poster = reply.get_poster();
         if (reply.get_timestamp() != null)
-            edges.add(new TemporalEdge(poster, owner, new Date(reply.get_timestamp())));
+            edges.add(new TemporalEdge(poster, owner, LocalDate.parse(reply.get_timestamp())));
 
         ArrayList<Reply> sub_replies = reply.get_replies();
         if (sub_replies != null) {
             for (Reply r : sub_replies) {
                 if (r.get_timestamp() != null)
-                    edges.add(new TemporalEdge(r.get_poster(), poster, new Date(r.get_timestamp())));
+                    edges.add(new TemporalEdge(r.get_poster(), poster, LocalDate.parse(r.get_timestamp())));
                 extract_edges(r,owner);
             }
         }

@@ -1,5 +1,6 @@
 package de.fu.info.wikisocial.wikidata.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -9,10 +10,10 @@ import java.util.Date;
 public class TemporalEdge implements Comparable<TemporalEdge> {
     private String src;
     private String tgt;
-    private Date timestamp;
+    private LocalDate timestamp;
 
 
-    public TemporalEdge(String src, String tgt, Date timestamp) {
+    public TemporalEdge(String src, String tgt, LocalDate timestamp) {
         this.src = src;
         this.tgt = tgt;
         this.timestamp = timestamp;
@@ -23,7 +24,7 @@ public class TemporalEdge implements Comparable<TemporalEdge> {
         if (this.timestamp.equals(other.timestamp))
             return 0;
         else
-            return this.timestamp.before(other.timestamp) ? -1 : 1;
+            return this.timestamp.isBefore(other.timestamp) ? -1 : 1;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class TemporalEdge implements Comparable<TemporalEdge> {
         return tgt;
     }
 
-    public Date getTimestamp() {
+    public LocalDate getTimestamp() {
         return timestamp;
     }
 }
