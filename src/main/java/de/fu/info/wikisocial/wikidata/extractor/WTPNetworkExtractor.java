@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,10 +24,6 @@ public class WTPNetworkExtractor {
     private String filename;
 
     private ArrayList<Thread> threads;
-
-//    private ArrayList<Pair<String, String>> edges;
-    // list of edges with timestamp
-//    private ArrayList<Pair<Pair<String, String>, String>> edges;
 
     private ArrayList<TemporalEdge> edges;
     /**
@@ -74,13 +71,15 @@ public class WTPNetworkExtractor {
     private void extract_edges(Reply reply, String owner) throws IOException {
         String poster = reply.get_poster();
         if (reply.get_timestamp() != null)
-            edges.add(new TemporalEdge(poster, owner, LocalDate.parse(reply.get_timestamp())));
+            edges.add(new TemporalEdge(poster, owner, LocalDate.parse(reply.get_timestamp(),
+                    DateTimeFormatter.ofPattern("d[d] MMMM yyyy"))));
 
         ArrayList<Reply> sub_replies = reply.get_replies();
         if (sub_replies != null) {
             for (Reply r : sub_replies) {
                 if (r.get_timestamp() != null)
-                    edges.add(new TemporalEdge(r.get_poster(), poster, LocalDate.parse(r.get_timestamp())));
+                    edges.add(new TemporalEdge(r.get_poster(), poster, LocalDate.parse(r.get_timestamp(),
+                            DateTimeFormatter.ofPattern("d[d] MMMM yyyy"))));
                 extract_edges(r,owner);
             }
         }
@@ -106,8 +105,8 @@ public class WTPNetworkExtractor {
                 else
                     continue;
 //                    right = "null";
-                writer.write(src + "," + tgt);
-                writer.write(","+ e.getTimestamp());
+                writer.write(src + ";" + tgt);
+                writer.write(";"+ e.getTimestamp().format(DateTimeFormatter.ISO_DATE));
                 writer.write("\n");
             }
         } catch (IOException iex) {

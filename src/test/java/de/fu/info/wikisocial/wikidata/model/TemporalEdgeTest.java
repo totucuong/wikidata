@@ -46,6 +46,8 @@ public class TemporalEdgeTest {
     public void setUp() throws Exception {
         edge1 = new TemporalEdge("alex", "malice", LocalDate.parse("2 January 2017", DateTimeFormatter.ofPattern("d[d] MMMM yyyy")));
         edge2 = new TemporalEdge("cuong", "alex", LocalDate.parse("22 March 2107",  DateTimeFormatter.ofPattern("d[d] MMMM yyyy")));
+//        TemporalEdge edge3 = new TemporalEdge("blabla", "alex", LocalDate.parse("20 November 2012",  DateTimeFormatter.ofPattern("d[d] MMMM yyyy")));
+//        System.out.println(edge3);
     }
 
 }

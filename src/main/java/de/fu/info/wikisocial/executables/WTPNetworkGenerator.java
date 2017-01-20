@@ -21,7 +21,7 @@ public class WTPNetworkGenerator {
             String cur;
             while  ((cur = in.readLine()) != null) {
                 User u = new User();
-                u.setUser_name(cur.replace(" ", "_"));
+                u.setUser_name(cur.replace(" ", ""));
                 users.add(u);
             }
         } catch (Exception ex) {
@@ -29,7 +29,7 @@ public class WTPNetworkGenerator {
         }
 
         // extract wtp network
-        WTPNetworkExtractor wtpNetworkExtractor = new WTPNetworkExtractor("./data/wtpnetwork_timestamp.csv");
+        WTPNetworkExtractor wtpNetworkExtractor = new WTPNetworkExtractor("./data/wtp-networks/wtpnetwork_timestamp.csv");
         try {
             wtpNetworkExtractor.extract(users);
             wtpNetworkExtractor.save();
