@@ -14,20 +14,9 @@ import java.util.List;
 public class ContentNetworkGenerator {
     public static void main(String[] args) {
         // read in users with talk page that has table of content
-        List<User> users = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader("data/owners_toc.txt"))) {
-            String cur;
-            while  ((cur = in.readLine()) != null) {
-                User u = new User();
-                u.setUser_name(cur.replace(" ", "_"));
-                users.add(u);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        List<User> users = Util.getUsers("data/owners_toc.txt");
 
-        // extract content network
-        ContentNetworkExtractor contentNetworkExtractor = new ContentNetworkExtractor("./data/contentnetwork.csv");
+        ContentNetworkExtractor contentNetworkExtractor = new ContentNetworkExtractor("./data/content-networks/contentnetwork.csv");
         try {
             contentNetworkExtractor.extract(users);
             contentNetworkExtractor.save();

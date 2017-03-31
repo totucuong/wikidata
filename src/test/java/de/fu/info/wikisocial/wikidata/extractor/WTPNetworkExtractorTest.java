@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by totucuong-standard on 9/26/16.
  */
@@ -22,7 +20,7 @@ public class WTPNetworkExtractorTest {
 
     @Test
     public void extract() throws Exception {
-        WTPNetworkExtractor wtpNetworkExtractor = new WTPNetworkExtractor("./data/wtpnetwork.txt");
+        WtpNetworkExtractor wtpNetworkExtractor = new WtpNetworkExtractor("./data/wtpnetwork.txt");
         wtpNetworkExtractor.extract(users);
         wtpNetworkExtractor.save();
     }

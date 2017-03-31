@@ -72,6 +72,10 @@ public class Reply {
        return Extractor.extract_time(question);
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
