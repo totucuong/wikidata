@@ -135,6 +135,14 @@ public class Extractor {
         return artifacts;
     }
 
+    public static boolean containProperty(String content) {
+        return (Extractor.extract_props(content).size() > 0);
+    }
+
+    public static boolean containItem(String content) {
+        return (Extractor.extract_items(content).size() > 0);
+    }
+
     public static int count_num_item_mentions(String content) {
         int count = 0;
         Matcher m = i_reg.matcher(content);
