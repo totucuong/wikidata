@@ -38,8 +38,8 @@ public class WtpNetworkExtractor extends AbstractNetworkExtractor {
         if (reply.get_timestamp() != null) {
             TemporalEdge e = new TemporalEdge(poster, owner, LocalDate.parse(reply.get_timestamp(),
                     DateTimeFormatter.ofPattern("d[d] MMMM yyyy")));
-            e.setItemCount(reply.getItems().size());
-            e.setPropCount(reply.getProps().size());
+            e.setItems(reply.getItems());
+            e.setProps(reply.getProps());
             e.setContext(reply.getQuestion());
             edges.add(e);
         }
@@ -48,15 +48,6 @@ public class WtpNetworkExtractor extends AbstractNetworkExtractor {
         ArrayList<Reply> sub_replies = reply.get_replies();
         if (sub_replies != null) {
             for (Reply r : sub_replies) {
-//                TemporalEdge e = new TemporalEdge(r.get_poster(), newOwner, LocalDate.parse(r.get_timestamp(),
-//                            DateTimeFormatter.ofPattern("d[d] MMMM yyyy")));
-//                e.setItemCount(r.getItems().size());
-//                e.setPropCount(r.getProps().size());
-//                edges.add(e);
-//                if (r.get_timestamp() != null)
-//                    edges.add(new TemporalEdge(r.get_poster(), poster, LocalDate.parse(r.get_timestamp(),
-//                            DateTimeFormatter.ofPattern("d[d] MMMM yyyy"))));
-
                 extract_edges(r,newOwner);
             }
         }

@@ -8,9 +8,15 @@ import de.fu.info.wikisocial.wikidata.model.TemporalGraphs;
  */
 public class WtpNetworkSeriesGenerator {
     public static void main(String[] args) {
-        TemporalGraphs wtpGraphs = new TemporalGraphs("data/wtp-networks/wtpnetwork_timestamp.csv");
-        wtpGraphs.read();
-        wtpGraphs.split_weekly();
-        wtpGraphs.save();
+        if (args.length < 1) {
+            System.out.println("Usage: java de.fu.info.wikisocial.executables.WtpNetworkSeriesGenerator <path-to-wtpnetwork-timestamp>");
+        } else {
+//            TemporalGraphs wtpGraphs = new TemporalGraphs("data/wtp-networks/wtpnetwork_timestamp.csv");
+            TemporalGraphs wtpGraphs = new TemporalGraphs(args[0]);
+            wtpGraphs.read();
+            wtpGraphs.split_weekly();
+            wtpGraphs.save();
+        }
+
     }
 }

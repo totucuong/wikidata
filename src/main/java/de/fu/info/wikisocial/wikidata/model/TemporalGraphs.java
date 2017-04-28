@@ -19,9 +19,9 @@ import java.time.LocalDate;
  */
 public class TemporalGraphs {
 
-    private ArrayList<TemporalEdge> edges;
+    private List<String> edges;
 
-    private ArrayList<ArrayList<TemporalEdge>> weekly_graphs;
+    private List<List<String>> weekly_graphs;
 
     private String filePath;
 
@@ -38,12 +38,7 @@ public class TemporalGraphs {
         try (BufferedReader in = new BufferedReader(new FileReader(filePath))) {
             String cur;
             while  ((cur = in.readLine()) != null) {
-                String[] piece = cur.split(";");
-                TemporalEdge e = new TemporalEdge(piece[0], piece[1], LocalDate.parse(piece[2], DateTimeFormatter.ISO_DATE));
-                e.setItemCount(Integer.parseInt(piece[3]));
-                e.setPropCount(Integer.parseInt(piece[4]));
-                e.setContext(piece[5]);
-                edges.add(e);
+                edges.add(cur);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -55,10 +50,13 @@ public class TemporalGraphs {
      * @return weekly graphs
      */
     public void split_weekly() {
-        ArrayList<TemporalEdge> cur_week_edges = new ArrayList<>();
-        LocalDate next = edges.get(0).getTimestamp().plusWeeks(1);
+        List<String> cur_week_edges = new ArrayList<>();
+
+        // grab the first edge and find the start date
+        LocalDate next = getTimestamp(edges.get(0)).plusWeeks(1);
+
         for (int i = 0; i < edges.size(); i++) {
-            if (edges.get(i).getTimestamp().isAfter(next)) {
+            if (getTimestamp(edges.get(i)).isAfter(next)) {
                 // split current week graph off
                 this.weekly_graphs.add(cur_week_edges);
                 // move on to next week
@@ -71,6 +69,11 @@ public class TemporalGraphs {
         }
     }
 
+    private LocalDate getTimestamp(String edge) {
+        String[] piece = edge.split(";");
+        return LocalDate.parse(piece[2], DateTimeFormatter.ISO_DATE);
+    }
+
     /**
      *
      * This method saves the graph on weekly basis.
@@ -81,18 +84,8 @@ public class TemporalGraphs {
             try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath + "_" + i))) {
                 weekly_graphs.get(i).forEach(e -> {
                     try {
-                        out.write(e.getSrc());
-                        out.write(";");
-                        out.write(e.getTgt());
-                        out.write(";");
-                        out.write(e.getTimestamp().format(DateTimeFormatter.ISO_DATE));
-                        out.write(";");
-                        out.write(Integer.toString(e.getItemCount()));
-                        out.write(";");
-                        out.write(Integer.toString(e.getPropCount()));
-                        out.write(";");
-                        out.write(e.getContext());
-                        out.write("\n");
+                        out.write(e);
+                        out.write(System.lineSeparator());
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }

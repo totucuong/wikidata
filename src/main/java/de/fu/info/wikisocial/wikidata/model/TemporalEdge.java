@@ -1,7 +1,9 @@
 package de.fu.info.wikisocial.wikidata.model;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by totucuong-standard on 1/13/17.
@@ -10,8 +12,8 @@ import java.util.Date;
 public class TemporalEdge implements Comparable<TemporalEdge> {
     private String src;
     private String tgt;
-    private int itemCount;
-    private int propCount;
+    private Collection<String> items;
+    private Collection<String> props;
     private String context;
 
 
@@ -19,9 +21,9 @@ public class TemporalEdge implements Comparable<TemporalEdge> {
         this.src = src;
         this.tgt = tgt;
         this.timestamp = timestamp;
-        this.itemCount = 0;
-        this.propCount = 0;
         this.context = "";
+        this.items = new ArrayList<>();
+        this.props = new ArrayList<>();
     }
 
     @Override
@@ -53,23 +55,8 @@ public class TemporalEdge implements Comparable<TemporalEdge> {
         return timestamp;
     }
 
-    public void setItemCount(int itemCount) {
-        this.itemCount = itemCount;
-    }
-
-    public void setPropCount(int propCount) {
-        this.propCount = propCount;
-    }
 
     private LocalDate timestamp;
-
-    public int getItemCount() {
-        return itemCount;
-    }
-
-    public int getPropCount() {
-        return propCount;
-    }
 
     public String getContext() {
         return context;
@@ -77,5 +64,21 @@ public class TemporalEdge implements Comparable<TemporalEdge> {
 
     public void setContext(String context) {
         this.context = context;
+    }
+
+    public void setItems(Collection<String> items) {
+        this.items = items;
+    }
+
+    public void setProps(Collection<String> props) {
+        this.props = props;
+    }
+
+    public Collection<String> getItems() {
+        return items;
+    }
+
+    public Collection<String> getProps() {
+        return props;
     }
 }
