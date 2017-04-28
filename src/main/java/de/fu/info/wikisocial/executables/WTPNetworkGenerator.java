@@ -12,16 +12,21 @@ import java.util.List;
 public class WTPNetworkGenerator {
 
     public static void main(String[] args) {
-        // read in users with talk page that has table of content
-        List<User> users = Util.getUsers("data/owners_toc.txt");
+        if (args.length < 2) {
+            System.out.println("Usage: java de.fu.info.wikisocial.executables.WTPNetworkGenerator" +
+                    " <own-toc-list-file-path> <output-file-path>");
+        } else {
+            // read in users with talk page that has table of content
+            List<User> users = Util.getUsers(args[0]);
 
-        // extract wtp network
-        WtpNetworkExtractor wtpNetworkExtractor = new WtpNetworkExtractor("./data/wtp-networks/wtpnetwork_timestamp.csv");
-        try {
-            wtpNetworkExtractor.extract(users);
-            wtpNetworkExtractor.save();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            // extract wtp network
+            WtpNetworkExtractor wtpNetworkExtractor = new WtpNetworkExtractor(args[1]);
+            try {
+                wtpNetworkExtractor.extract(users);
+                wtpNetworkExtractor.save();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by totucuong-standard on 9/22/16.
@@ -72,8 +73,16 @@ public class Reply {
        return Extractor.extract_time(question);
     }
 
+    public Collection<String> getItems() {
+        return Extractor.extract_items(question);
+    }
+
+    public Collection<String> getProps() {
+        return Extractor.extract_props(question);
+    }
+
     public String getQuestion() {
-        return question;
+        return question.replace(System.lineSeparator(), "").replace(";", "");
     }
 
     @Override

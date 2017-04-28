@@ -96,6 +96,9 @@ public abstract class  AbstractNetworkExtractor {
 //                    right = "null";
                 writer.write(src + ";" + tgt);
                 writer.write(";"+ e.getTimestamp().format(DateTimeFormatter.ISO_DATE));
+                writer.write(";" + e.getItemCount());
+                writer.write(";" + e.getPropCount());
+                writer.write(";" + e.getContext());
                 writer.write("\n");
             }
         } catch (IOException iex) {

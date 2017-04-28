@@ -10,13 +10,18 @@ import java.util.Date;
 public class TemporalEdge implements Comparable<TemporalEdge> {
     private String src;
     private String tgt;
-    private LocalDate timestamp;
+    private int itemCount;
+    private int propCount;
+    private String context;
 
 
     public TemporalEdge(String src, String tgt, LocalDate timestamp) {
         this.src = src;
         this.tgt = tgt;
         this.timestamp = timestamp;
+        this.itemCount = 0;
+        this.propCount = 0;
+        this.context = "";
     }
 
     @Override
@@ -46,5 +51,31 @@ public class TemporalEdge implements Comparable<TemporalEdge> {
 
     public LocalDate getTimestamp() {
         return timestamp;
+    }
+
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
+    }
+
+    public void setPropCount(int propCount) {
+        this.propCount = propCount;
+    }
+
+    private LocalDate timestamp;
+
+    public int getItemCount() {
+        return itemCount;
+    }
+
+    public int getPropCount() {
+        return propCount;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
     }
 }

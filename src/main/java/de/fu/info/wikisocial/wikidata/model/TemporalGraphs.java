@@ -39,8 +39,11 @@ public class TemporalGraphs {
             String cur;
             while  ((cur = in.readLine()) != null) {
                 String[] piece = cur.split(";");
-                System.out.println(cur);
-                edges.add(new TemporalEdge(piece[0], piece[1], LocalDate.parse(piece[2], DateTimeFormatter.ISO_DATE)));
+                TemporalEdge e = new TemporalEdge(piece[0], piece[1], LocalDate.parse(piece[2], DateTimeFormatter.ISO_DATE));
+                e.setItemCount(Integer.parseInt(piece[3]));
+                e.setPropCount(Integer.parseInt(piece[4]));
+                e.setContext(piece[5]);
+                edges.add(e);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -83,6 +86,12 @@ public class TemporalGraphs {
                         out.write(e.getTgt());
                         out.write(";");
                         out.write(e.getTimestamp().format(DateTimeFormatter.ISO_DATE));
+                        out.write(";");
+                        out.write(Integer.toString(e.getItemCount()));
+                        out.write(";");
+                        out.write(Integer.toString(e.getPropCount()));
+                        out.write(";");
+                        out.write(e.getContext());
                         out.write("\n");
                     } catch (IOException e1) {
                         e1.printStackTrace();
@@ -94,25 +103,4 @@ public class TemporalGraphs {
             }
         }
     }
-//        weekly_graphs.forEach(g -> {
-//            try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath + "_" + count))) {
-//                count++;
-//                g.forEach(e -> {
-//                    try {
-//                        out.write(e.getSrc());
-//                        out.write(";");
-//                        out.write(e.getTgt());
-//                        out.write(";");
-//                        out.write(e.getTimestamp().format(DateTimeFormatter.ISO_DATE));
-//                        out.write("\n");
-//                    } catch (IOException e1) {
-//                        e1.printStackTrace();
-//                    }
-//                });
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        });
-
-//    }
 }
