@@ -1,26 +1,33 @@
 This project studies the influence between social network and Wikidata ontology.
 
-There are three main goals in this project:
+There are two main parts in this project. 
 
-- Finding authoritative users on a given item/property.
-- Finding the top-k items/properties for a given user. Ranking is based on the authoritative score.
-- Explain the mechanisms through which authoritative users use their influence to drive editing activity?
-In other words, are there any correlation between coordination and the completeness of Wikidata's items and properties
- (measured indirectly by the number of edits and reverts)?
+- ./src/ contains java code to parse Wikidata website for data.
+- ./python/ directory contains analysis code written in Python notebooks
 
-# Milestones
+## Java Programs
 
-## Finding authoritative users on a given item/property
+In order to understand the source code, it may be a good idea to check out
+the document at [wikisocial](https://github.com/FUB-HCC/wikisocial-paper)
 
-- Construct a list of current users
-- Crawl on their user talk pages
-- For each talk page:
-    * Get each thread of discussion
-    * build a tree model of thread
-- Extract mentions of items/properties from their talk pages
-- Construct the Wikidata social graph
+This project use [Apache Maven](https://maven.apache.org) to manage the source code and build configuration.
+The best way is to import it into IntelliJ IDEA.
 
-## top-k items/properties query
+Important programs to run is WTPNetworkGenerator and WtpNetworkSeriesGenerator.
+Here is how to run them :
 
+```java de.fu.info.wikisocial.executables.WTPNetworkGenerator ./data/owners_toc.txt ./data/wtp-networksv2/wtpnetwork_timestamp.csv```
 
-## Explain the influence mechanisms
+and
+
+```java de.fu.info.wikisocial.executables.WtpNetworkSeriesGenerator data/wtp-networksv2/wtpnetwork_timestamp.csv```
+
+## Python Programs
+
+Please see [Ipython](https://ipython.org) to know how to run a python
+notebook.
+
+Please note that there are two version of data sets for wtp-network: 
+wtp-networks.zip and wtp-networksv2.zip. Please unzip them into the directory
+data/ to use. wtp-networksv2 has more fields than wtp-networks.
+
